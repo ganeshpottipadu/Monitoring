@@ -14,6 +14,7 @@ pipeline {
                 sh '''
                     echo "Project files:"
                     ls -la
+
                     echo "Docker version:"
                     docker --version
                 '''
@@ -29,6 +30,14 @@ pipeline {
             }
         }
 
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    echo "Building Docker image..."
+                    docker build -t monitoring-app:latest .
+                '''
+            }
+        }
     }
 
     post {
