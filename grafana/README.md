@@ -1,19 +1,39 @@
-# Grafana Monitoring
+# Grafana Monitoring Dashboard
 
-Grafana is used to visualize metrics collected by Prometheus.
+Grafana is used to visualize container metrics collected by Prometheus.
 
-## Monitoring
+## Prometheus Data Source
 
-- Container CPU usage
-- Container memory usage
-- Network receive traffic
-- Network transmit traffic
-- Docker container health
+Grafana is connected to Prometheus as the data source.
 
-## Data Source
+## Metrics Visualized
 
-Prometheus
+- Container network receive traffic
+- Container network transmit traffic
+- Container performance metrics
+- Container-level monitoring
 
-## Dashboard
+## PromQL Queries
 
-Grafana dashboards are connected to Prometheus for real-time monitoring.
+### Network Receive
+
+sum by (name) (rate(container_network_receive_bytes_total{name!=""}[5m]))
+
+### Network Transmit
+
+sum by (name) (rate(container_network_transmit_bytes_total{name!=""}[5m]))
+
+## Containers Monitored
+
+- Jenkins
+- Grafana
+- Prometheus
+- cAdvisor
+
+## Monitoring Flow
+
+Docker Containers → cAdvisor → Prometheus → Grafana Dashboard
+
+## Verification
+
+Metrics were successfully queried and visualized using Grafana Explore.
