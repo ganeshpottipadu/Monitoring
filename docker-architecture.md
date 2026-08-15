@@ -1,33 +1,37 @@
 # Docker Architecture
 
-## Running Containers
+## AWS EC2
 
-This project runs a complete monitoring stack using Docker containers.
+The monitoring environment is deployed on an AWS EC2 instance running Ubuntu Linux.
 
-| Container | Image | Port | Purpose |
-|---|---|---:|---|
-| Jenkins | jenkins-demo:9 | 8080 | CI/CD automation |
-| Prometheus | prom/prometheus:latest | 9090 | Metrics collection and monitoring |
-| Grafana | grafana/grafana:latest | 3000 | Metrics visualization and dashboards |
-| cAdvisor | ghcr.io/google/cadvisor:latest | 8081 | Docker container monitoring |
+## Docker Containers
 
-## Monitoring Flow
+The project currently runs the following containers:
 
-Docker Containers
-        ↓
-     cAdvisor
-        ↓
-    Prometheus
-        ↓
-      Grafana
+| Container | Port | Purpose |
+|---|---:|---|
+| Jenkins | 8080 | CI/CD automation |
+| Prometheus | 9090 | Metrics collection |
+| Grafana | 3000 | Metrics visualization |
+| cAdvisor | 8081 | Docker container metrics |
 
-Jenkins is used for CI/CD automation and is monitored as part of the Docker environment.
+## Monitoring Architecture
 
-## Infrastructure
+```text
+                    AWS EC2
+                       |
+                     Docker
+                       |
+       +---------------+---------------+
+       |               |               |
+    Jenkins         cAdvisor       Prometheus
+       |               |               |
+       |               +-------+-------+
+       |                       |
+       |                    Metrics
+       |                       |
+       |                    Grafana
+       |                       |
+       +------------- Monitoring
 
-- Host: AWS EC2
-- Container Platform: Docker
-- Monitoring: Prometheus + cAdvisor
-- Visualization: Grafana
-- CI/CD: Jenkins
-- Source Control: Git + GitHub
+
