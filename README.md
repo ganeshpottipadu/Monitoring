@@ -15,6 +15,14 @@ The setup monitors Docker container CPU usage and sends an email notification wh
 
 ## Architecture
 
+![Docker Monitoring Architecture](architecture.png)
+
+The architecture demonstrates the complete monitoring and alerting flow:
+
+Jenkins → Docker → cAdvisor → Prometheus → Grafana → Email Alerts
+
+## Architecture
+
 Jenkins
    |
    v
