@@ -15,29 +15,19 @@ The setup monitors Docker container CPU usage and sends an email notification wh
 
 ## Architecture
 
-![Docker Monitoring Architecture](architecture.png)
-
 The architecture demonstrates the complete monitoring and alerting flow:
 
-Jenkins → Docker → cAdvisor → Prometheus → Grafana → Email Alerts
+```mermaid
+flowchart LR
+    J[Jenkins] --> D[Docker]
+    D --> C[cAdvisor]
+    C --> P[Prometheus]
+    P --> G[Grafana]
+    G --> E[Email Alerts]
 
-## Architecture
-
-Jenkins
-   |
-   v
-Docker Containers
-   |
-   +--> cAdvisor
-   |       |
-   |       v
-   |   Prometheus
-   |       |
-   |       v
-   |    Grafana
-   |       |
-   |       v
-   +--> Email Alert
+    C -->|Container CPU Metrics| P
+    P -->|Prometheus Queries| G
+    G -->|CPU > Threshold| E
 
 ## Components
 
