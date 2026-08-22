@@ -25,9 +25,10 @@ flowchart LR
     P --> G[Grafana]
     G --> E[Email Alerts]
 
-    C -->|Container CPU Metrics| P
-    P -->|Prometheus Queries| G
-    G -->|CPU > Threshold| E
+    C -->|CPU Metrics| P
+    P -->|Metrics Query| G
+    G -->|CPU Threshold Exceeded| E
+```
 
 ## Components
 
